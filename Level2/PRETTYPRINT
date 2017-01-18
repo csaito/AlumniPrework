@@ -1,0 +1,37 @@
+public class Solution {
+	public ArrayList<ArrayList<Integer>> prettyPrint(int a) {
+	    if (a <= 0) {
+	        return new ArrayList<ArrayList<Integer>>();
+	    } else if (a == 1) {
+	        ArrayList<Integer> row = new ArrayList<Integer>();
+	        row.add(1);
+	        ArrayList<ArrayList<Integer>> col = new ArrayList<ArrayList<Integer>>();
+	        col.add(row);
+	        return col;
+	    } else {
+	        return wrapArray(a, prettyPrint(a-1));
+	    }
+	}
+	
+	private ArrayList<ArrayList<Integer>> wrapArray(int a, ArrayList<ArrayList<Integer>> inside) {
+	    int newDimension = inside.size() + 2;
+	    
+	   ArrayList<ArrayList<Integer>> col = new ArrayList<ArrayList<Integer>>();
+	   
+	    for (int i = 0; i < newDimension; i++) {
+	        ArrayList<Integer> row = new ArrayList<Integer>();
+	        for (int j = 0; j < newDimension; j++) {
+	            if (j == 0 || j == newDimension-1) {
+	                row.add(a);
+	            } else if (i == 0 || i == newDimension-1) {
+	                row.add(a);
+	            } else {
+	                Integer insideValue = inside.get(i-1).get(j-1);
+	                row.add(insideValue);
+	            }
+	        }
+	        col.add(row);
+	    }
+	    return col;
+	}
+}
